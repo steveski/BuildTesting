@@ -22,8 +22,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - name: Display the path
-        run: echo ${GITHUB_WORKSPACE}
+      - run: echo "Doing stuff on $GITHUB_WORKSPACE"
         
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v1.8.1
@@ -40,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
   
     steps:
-      - run: echo "Doing stuff on $GITHUB_WORKSPACE"
+      - run: echo "Doing mroe stuff on $GITHUB_WORKSPACE"
     #- uses: ncipollo/release-action@v1
     #  with:
     #    artifacts: "release.tar.gz,foo/*.txt"
