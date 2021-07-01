@@ -20,45 +20,38 @@ jobs:
     steps:
       # Build the solution
       - uses: actions/checkout@v2
-      - run: echo "Doing stuff on ${{ github.workspace }}"
-        
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v1.8.1
+
+      - uses: actions/download-artifact@v2
         with:
-          dotnet-version: 5.0.x
+          name: my-artifact
+    
+      - name: Display structure of downloaded files
+        run: ls -R
 
-      - name: Install dependencies
-        run: dotnet restore
 
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
 
-      - name: Zip the release
-        uses: montudor/action-zip@v1
-        with:
-          args: zip -qq -r ${{ env.ZipName }} ${{ env.BuildPath }}
 
       # Create a Release on the GitHub project
-      - name: Create release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ github.ref }}
-          release_name:  ${{ github.ref }}
-          draft: false
-          prerelease: false
-
-      # Upload the Build Artifact to the Release
-      - name: Update release asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}  # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: .\${{ env.ZipName }}
-          asset_name: ${{ env.ZipName }}
-          asset_content_type: application/zip
+      #- name: Create release
+      #  id: create_release
+      #  uses: actions/create-release@v1
+      #  env:
+      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      #  with:
+      #    tag_name: ${{ github.ref }}
+      #    release_name:  ${{ github.ref }}
+      #    draft: false
+      #    prerelease: false
+      #
+      ## Upload the Build Artifact to the Release
+      #- name: Update release asset
+      #  id: upload-release-asset
+      #  uses: actions/upload-release-asset@v1
+      #  env:
+      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #  with:
+      #    upload_url: ${{ steps.create_release.outputs.upload_url }}  # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+      #    asset_path: .\${{ env.ZipName }}
+      #    asset_name: ${{ env.ZipName }}
+      #    asset_content_type: application/zip
 
