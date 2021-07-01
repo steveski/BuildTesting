@@ -22,24 +22,33 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - run: echo "Doing stuff on $GITHUB_WORKSPACE"
+      - run: echo "Doing stuff on ${{ github.workspace }}"
         
-      - name: Setup .NET Core SDK
+      - name: Setup .NET SDK
         uses: actions/setup-dotnet@v1.8.1
         with:
-          dotnet-version: 5.0.301
+          dotnet-version: 5.0.x
+
       - name: Install dependencies
         run: dotnet restore
+
       - name: Build
         run: dotnet build --configuration Release --no-restore
         
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.2.4
+        with:
+          name: thingy
+          path: ${{ github.workspace }}
+
+          retention-days: 1
       
 
   Release:
     runs-on: ubuntu-latest
   
     steps:
-      - run: echo "Doing mroe stuff on $GITHUB_WORKSPACE"
+      - run: echo "Doing more stuff on $GITHUB_WORKSPACE"
     #- uses: ncipollo/release-action@v1
     #  with:
     #    artifacts: "release.tar.gz,foo/*.txt"
