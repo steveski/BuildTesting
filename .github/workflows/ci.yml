@@ -16,7 +16,7 @@ on:
 
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  Build:
     runs-on: windows-latest
 
     steps:
@@ -36,9 +36,12 @@ jobs:
         
       
 
-  #release:
-  #  runs-on: ubuntu-latest
-  #
-  #  steps:
-      # - name: Archive Release
-      #   uses: softprops/action-gh-release@v0.1.5
+  Release:
+    runs-on: ubuntu-latest
+  
+    steps:
+      - run: echo "Doing stuff on $GITHUB_WORKSPACE"
+    #- uses: ncipollo/release-action@v1
+    #  with:
+    #    artifacts: "release.tar.gz,foo/*.txt"
+    #    token: ${{ secrets.GITHUB_TOKEN }}
