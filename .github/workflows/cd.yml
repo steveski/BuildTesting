@@ -15,6 +15,7 @@ jobs:
     runs-on: windows-latest
     env:
       BuildPath: ${{ github.workspace }}\BuildTesting\bin\Release\net5.0-windows
+      ZipName: TheThing.zip
 
     steps:
       # Build the solution
@@ -33,10 +34,9 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Zip the release
-        uses: papeloto/action-zip@v1
+        uses: montudor/action-zip@v1
         with:
-          files: ${{ env.BuildPath }}\
-          dest: thingy.zip
+          args: zip -qq -r ${{ env.ZipName }} ${{ env.BuildPath }}
 
       # Create a Release on the GitHub project
       - name: Create release
@@ -58,7 +58,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}  # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: .\thingy.zip
-          asset_name: thingy.zip
+          asset_path: .\${{ env.ZipName }}
+          asset_name: ${{ env.ZipName }}
           asset_content_type: application/zip
 
