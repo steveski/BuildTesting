@@ -21,9 +21,9 @@ jobs:
       # Build the solution
       - uses: actions/checkout@v2
 
-      - uses: actions/download-artifact@v2
-        with:
-          name: my-artifact
+      #- uses: actions/download-artifact@v2
+      #  with:
+      #    name: my-artifact
     
       - name: Display structure of downloaded files
         run: ls -R
