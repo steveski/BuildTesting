@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v2.2.4
         with:
           name: thingy
-          path: ${{ github.workspace }}
+          path: ${{ github.workspace }}\BuildTesting\bin\Release\net5.0-windows
 
           retention-days: 1
       
