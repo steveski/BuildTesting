@@ -44,7 +44,6 @@ jobs:
           retention-days: 1
       
       - name: Create Release
-        run: echo Doing more stuff on $GITHUB_WORKSPACE
         uses: ncipollo/release-action@v1
         with:
           artifacts: "thingy.zip"
