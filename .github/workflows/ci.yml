@@ -48,8 +48,8 @@ jobs:
     runs-on: ubuntu-latest
   
     steps:
-      - run: echo "Doing more stuff on $GITHUB_WORKSPACE"
-    #- uses: ncipollo/release-action@v1
-    #  with:
-    #    artifacts: "release.tar.gz,foo/*.txt"
-    #    token: ${{ secrets.GITHUB_TOKEN }}
+      - run: echo Doing more stuff on $GITHUB_WORKSPACE
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "thingy.zip"
+          token: ${{ secrets.GITHUB_TOKEN }}
