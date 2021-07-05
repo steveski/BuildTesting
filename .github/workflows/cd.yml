@@ -16,7 +16,7 @@ jobs:
     env:
       #BuildPath: ${{ github.workspace }}\BuildTesting\bin\Release\net5.0-windows
       BuildPath: .
-      ZipName: TheThingy.zip
+      ZipName: TheThingy
 
     steps:
       # Build the solution
@@ -34,12 +34,19 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
 
-      - name: Zip the release
-        uses: papeloto/action-zip@v1
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.2.4
         with:
-          files: ${{ env.BuildPath }}
-          recursive: true
-          dest: ${{ env.ZipName }}
+          name: ${{ env.ZipName }}
+          path: ${{ github.workspace }}\BuildTesting\bin\Release\net5.0-windows
+          
+      - name: Download the Build Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ env.ZipName }}
+          
+      - name: Display structure of downloaded files
+        run: dir
 
       # Create a Release on the GitHub project
       - name: Create release
