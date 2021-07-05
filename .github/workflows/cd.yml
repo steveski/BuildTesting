@@ -21,7 +21,6 @@ jobs:
     steps:
       # Build the solution
       - uses: actions/checkout@v2
-      - run: echo "Doing stuff on ${{ github.workspace }}"
         
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v1.8.1
