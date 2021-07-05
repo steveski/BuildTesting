@@ -41,11 +41,11 @@ jobs:
           
       - name: Display structure of downloaded files
         run: dir
-        
+
       - name: Download the Build Artifact
         uses: actions/download-artifact@v2
         with:
-          name: ${{ env.ZipName }}
+          name: ${{ env.ZipName }}.zip
           
       - name: Display structure of downloaded files
         run: dir
